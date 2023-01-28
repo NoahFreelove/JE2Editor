@@ -11,6 +11,8 @@ import org.JE.UI.HierarchyWindow;
 import org.JE.UI.InspectorWindow;
 import org.joml.Vector2f;
 
+import java.io.File;
+
 public class EditorScene extends Scene {
     public static EditorScene instance = new EditorScene();
     public EditorScene(){
@@ -44,6 +46,7 @@ public class EditorScene extends Scene {
             FileExplorer.instance.setPos(GetScaledPosition.getScaledPosition(0f,80f,new Vector2f(1280,720), new Vector2f(Manager.getWindowSize().x(),Manager.getWindowSize().y())));
             FileExplorer.instance.setSize(GetScaledPosition.getScaledPosition(100f,20f,new Vector2f(1280,720), new Vector2f(Manager.getWindowSize().x(),Manager.getWindowSize().y())));
         }
+        FileExplorer.instance.refresh();
     }
 
     public void resetInspector(){
@@ -70,6 +73,8 @@ public class EditorScene extends Scene {
     @Override
     public void add(GameObject object){
         super.add(object);
-        HierarchyWindow.instance.addItem(object);
+        if(object.getParent() != object)
+            return;
+        HierarchyWindow.instance.addItem(object, 0);
     }
 }

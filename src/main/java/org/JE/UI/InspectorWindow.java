@@ -25,8 +25,9 @@ public class InspectorWindow extends UIWindow {
         selected = object;
         children.clear();
 
-        selected.getComponents().forEach((c) -> {
+        for (Component c :
+                selected.getComponents()) {
             children.add(new ComponentElement(c));
-        });
+        }
     }
 }

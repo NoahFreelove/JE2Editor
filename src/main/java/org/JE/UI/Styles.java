@@ -5,8 +5,8 @@ import JE.UI.UIElements.Style.StyleInfo;
 
 public record Styles() {
     public static final StyleInfo buttonStyle = new StyleInfo()
-            .setHoverColor(Color.createColorHex("#CBCFE4"))
-            .setPressedColor(Color.createColorHex("#272A3A"))
+            .setHoverColor(Color.createColorHex("#737272"))
+            .setPressedColor(Color.createColorHex("#212121"))
             .setInactiveColor(Color.createColorHex("#191A1D"))
-            .setNormalColor(Color.createColorHex("#7E87AC"));
+            .setNormalColor(Color.createColorHex("#424242"));
 }

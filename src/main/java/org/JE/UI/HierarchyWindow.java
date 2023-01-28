@@ -3,6 +3,7 @@ package org.JE.UI;
 import JE.Objects.Base.GameObject;
 import JE.UI.UIElements.Buttons.StyledButton;
 
+import JE.UI.UIElements.Label;
 import JE.UI.UIObjects.UIWindow;
 import org.joml.Vector2f;
 
@@ -18,7 +19,29 @@ public class HierarchyWindow extends UIWindow {
         windowOptions = NK_WINDOW_SCALABLE | NK_WINDOW_MINIMIZABLE | NK_WINDOW_MOVABLE;
     }
 
-    public void addItem(GameObject object){
-        children.add(new StyledButton(object.getIdentity().name + " : " + object.getIdentity().tag, () -> InspectorWindow.instance.setItem(object), Styles.buttonStyle));
+    public void addItem(GameObject object, int i){
+        children.add(new StyledButton(object.getIdentity().name + " : " + object.getIdentity().tag, Styles.buttonStyle, () -> InspectorWindow.instance.setItem(object)));
+
+        if(object.getChildren().length>0){
+            if(i == 0){
+                children.add(new Label("Children:"));
+            }
+            else {
+                children.add(new Label("Children^" + (i+1) + ":"));
+
+            }
+            for (GameObject c :
+                    object.getChildren()) {
+                addItem(c,i+1);
+            }
+
+            if(i == 0){
+                children.add(new Label("End Children"));
+            }
+            else {
+                children.add(new Label("End Children^" + (i+1)));
+
+            }
+        }
     }
 }
