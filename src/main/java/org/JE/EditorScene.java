@@ -1,17 +1,16 @@
 package org.JE;
 
-import JE.IO.UserInput.KeyPressedEvent;
-import JE.IO.UserInput.Keyboard;
+import JE.IO.UserInput.Keyboard.Keyboard;
 import JE.Manager;
 import JE.Objects.Base.GameObject;
 import JE.Scene.Scene;
 import JE.UI.GetScaledPosition;
 import org.JE.UI.FileExplorer;
+import org.JE.UI.FileViewer;
 import org.JE.UI.HierarchyWindow;
 import org.JE.UI.InspectorWindow;
 import org.joml.Vector2f;
 
-import java.io.File;
 
 public class EditorScene extends Scene {
     public static EditorScene instance = new EditorScene();
@@ -19,6 +18,7 @@ public class EditorScene extends Scene {
         addUI(HierarchyWindow.instance);
         addUI(InspectorWindow.instance);
         addUI(FileExplorer.instance);
+        addUI(FileViewer.instance);
 
         Keyboard.keyPressedEvents.add((code, mods) -> {
             if(Keyboard.nameToCode("F1") == code){

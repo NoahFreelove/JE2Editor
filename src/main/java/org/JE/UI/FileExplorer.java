@@ -1,7 +1,5 @@
 package org.JE.UI;
 
-import JE.Objects.Base.GameObject;
-import JE.UI.UIElements.Buttons.StyledButton;
 import JE.UI.UIElements.Buttons.TextImageButton;
 import JE.UI.UIObjects.UIWindow;
 import org.joml.Vector2f;
@@ -42,8 +40,9 @@ public class FileExplorer extends UIWindow {
     }
 
     public void addFile(File file){
-        children.add(new TextImageButton(file.getName(), "bin/texture1.png", ()->{
-            FileViewer.instance.viewFile(decide(file), file.getAbsolutePath());
+        Filetype ft = decide(file);
+        children.add(new TextImageButton(file.getName(), getFileTypeIcon(ft), ()->{
+            FileViewer.instance.viewFile(ft, file.getAbsolutePath());
         }, new Vector2f(128,128)));
     }
 
@@ -55,6 +54,15 @@ public class FileExplorer extends UIWindow {
             case "png", "jpg" -> Filetype.IMAGE;
             case "ttf" -> Filetype.FONT;
             default -> Filetype.UNKNOWN;
+        };
+    }
+
+    public String getFileTypeIcon(Filetype ft){
+        return switch (ft){
+            case IMAGE -> "bin/image.png";
+            case FONT -> "bin/font.png";
+            case UNKNOWN -> "bin/unknown.png";
+            default -> "bin/unknown.png";
         };
     }
 }
