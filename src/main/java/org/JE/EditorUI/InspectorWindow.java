@@ -1,12 +1,10 @@
 package org.JE.EditorUI;
 
 
-import JE.Objects.GameObject;
-import JE.Objects.Scripts.Base.Script;
 import JE.UI.UIObjects.UIWindow;
 import org.JE.EditorUI.Elements.ScriptElement;
 import org.JE.SceneObject;
-import org.JE.ScriptObject;
+import org.JE.ScriptElement.ScriptObject;
 import org.joml.Vector2f;
 
 import static org.lwjgl.nuklear.Nuklear.*;

@@ -5,16 +5,11 @@ import JE.Objects.Identity;
 import JE.Objects.Scripts.Common.Transform;
 import JE.Rendering.Shaders.ShaderProgram;
 import JE.Rendering.Texture;
+import org.JE.ScriptElement.ScriptObject;
 import org.joml.Vector2f;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Base64;
 
 public class SceneObject{
     public ArrayList<ScriptObject> scripts = new ArrayList<>();

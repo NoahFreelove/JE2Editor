@@ -1,4 +1,4 @@
-package org.JE;
+package org.JE.ScriptElement;
 
 import JE.Objects.Scripts.Base.Script;
 
