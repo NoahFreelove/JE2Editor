@@ -1,4 +1,4 @@
-package org.JE.UI;
+package org.JE.EditorUI;
 
 import JE.UI.UIElements.UIImage;
 import JE.UI.UIObjects.UIWindow;
@@ -15,6 +15,7 @@ public class FileViewer extends UIWindow {
         setPos(pos);
         windowOptions = NK_WINDOW_SCALABLE | NK_WINDOW_MINIMIZABLE | NK_WINDOW_MOVABLE;
         children.add(image);
+        closeWindow();
     }
 
     public void viewFile(Filetype ft, String fp){

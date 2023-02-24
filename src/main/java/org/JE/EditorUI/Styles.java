@@ -1,4 +1,4 @@
-package org.JE.UI;
+package org.JE.EditorUI;
 
 import JE.UI.UIElements.Style.Color;
 import JE.UI.UIElements.Style.StyleInfo;

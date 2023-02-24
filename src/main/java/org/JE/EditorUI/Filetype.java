@@ -1,4 +1,4 @@
-package org.JE.UI;
+package org.JE.EditorUI;
 
 public enum Filetype {
     IMAGE,

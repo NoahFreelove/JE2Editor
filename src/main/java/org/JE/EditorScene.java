@@ -2,13 +2,13 @@ package org.JE;
 
 import JE.IO.UserInput.Keyboard.Keyboard;
 import JE.Manager;
-import JE.Objects.Base.GameObject;
+import JE.Objects.GameObject;
 import JE.Scene.Scene;
 import JE.UI.GetScaledPosition;
-import org.JE.UI.FileExplorer;
-import org.JE.UI.FileViewer;
-import org.JE.UI.HierarchyWindow;
-import org.JE.UI.InspectorWindow;
+import org.JE.EditorUI.FileExplorer;
+import org.JE.EditorUI.FileViewer;
+import org.JE.EditorUI.HierarchyWindow;
+import org.JE.EditorUI.InspectorWindow;
 import org.joml.Vector2f;
 
 
@@ -70,10 +70,10 @@ public class EditorScene extends Scene {
 
     }
 
-    @Override
-    public void add(GameObject object){
-        super.add(object);
-        if(object.getParent() != object)
+
+    public void addToScene(SceneObject object){
+        add(object.sceneRef);
+        if(object.sceneRef.getParent() != object.sceneRef)
             return;
         HierarchyWindow.instance.addItem(object, 0);
     }

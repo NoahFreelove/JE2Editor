@@ -1,18 +1,19 @@
-package org.JE.UI;
+package org.JE.EditorUI;
 
-import JE.Objects.Base.GameObject;
-import JE.Objects.Components.Base.Component;
-import JE.UI.UIElements.Buttons.Button;
+
+import JE.Objects.GameObject;
+import JE.Objects.Scripts.Base.Script;
 import JE.UI.UIObjects.UIWindow;
-import org.JE.UI.Elements.ComponentElement;
+import org.JE.EditorUI.Elements.ScriptElement;
+import org.JE.SceneObject;
+import org.JE.ScriptObject;
 import org.joml.Vector2f;
-import org.joml.Vector2i;
 
 import static org.lwjgl.nuklear.Nuklear.*;
 
 public class InspectorWindow extends UIWindow {
     public static InspectorWindow instance = new InspectorWindow(new Vector2f(200,0));
-    private GameObject selected = new GameObject();
+    private SceneObject selected = new SceneObject();
 
     public InspectorWindow(Vector2f pos){
         super("Inspector");
@@ -21,13 +22,13 @@ public class InspectorWindow extends UIWindow {
     }
 
 
-    public void setItem(GameObject object){
+    public void setItem(SceneObject object){
         selected = object;
         children.clear();
 
-        for (Component c :
-                selected.getComponents()) {
-            children.add(new ComponentElement(c));
+        for (ScriptObject c :
+                selected.scripts) {
+            children.add(new ScriptElement(c.scriptRef));
         }
     }
 }

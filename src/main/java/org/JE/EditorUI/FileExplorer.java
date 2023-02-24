@@ -1,5 +1,6 @@
-package org.JE.UI;
+package org.JE.EditorUI;
 
+import JE.Resources.ResourceLoader;
 import JE.UI.UIElements.Buttons.TextImageButton;
 import JE.UI.UIObjects.UIWindow;
 import org.joml.Vector2f;
@@ -21,7 +22,7 @@ public class FileExplorer extends UIWindow {
 
     public void refresh(){
         children.clear();
-        searchDir("bin/");
+        searchDir("src/main/resources/");
     }
 
     public void searchDir(String directory){
@@ -41,7 +42,7 @@ public class FileExplorer extends UIWindow {
 
     public void addFile(File file){
         Filetype ft = decide(file);
-        children.add(new TextImageButton(file.getName(), getFileTypeIcon(ft), ()->{
+        children.add(new TextImageButton(file.getName(), ResourceLoader.getBytes(getFileTypeIcon(ft)), ()->{
             FileViewer.instance.viewFile(ft, file.getAbsolutePath());
         }, new Vector2f(128,128)));
     }
@@ -59,10 +60,9 @@ public class FileExplorer extends UIWindow {
 
     public String getFileTypeIcon(Filetype ft){
         return switch (ft){
-            case IMAGE -> "bin/image.png";
-            case FONT -> "bin/font.png";
-            case UNKNOWN -> "bin/unknown.png";
-            default -> "bin/unknown.png";
+            case IMAGE -> "image.png";
+            case FONT -> "font.png";
+            default -> "unknown.png";
         };
     }
 }

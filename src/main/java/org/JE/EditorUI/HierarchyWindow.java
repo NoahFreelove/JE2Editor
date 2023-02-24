@@ -1,10 +1,11 @@
-package org.JE.UI;
+package org.JE.EditorUI;
 
-import JE.Objects.Base.GameObject;
+import JE.Objects.GameObject;
 import JE.UI.UIElements.Buttons.StyledButton;
 
 import JE.UI.UIElements.Label;
 import JE.UI.UIObjects.UIWindow;
+import org.JE.SceneObject;
 import org.joml.Vector2f;
 
 import static org.lwjgl.nuklear.Nuklear.*;
@@ -19,10 +20,10 @@ public class HierarchyWindow extends UIWindow {
         windowOptions = NK_WINDOW_SCALABLE | NK_WINDOW_MINIMIZABLE | NK_WINDOW_MOVABLE;
     }
 
-    public void addItem(GameObject object, int i){
-        children.add(new StyledButton(object.getIdentity().name + " : " + object.getIdentity().tag, Styles.buttonStyle, () -> InspectorWindow.instance.setItem(object)));
+    public void addItem(SceneObject object, int i){
+        children.add(new StyledButton(object.sceneRef.identity().name + " : " + object.sceneRef.identity().tag, Styles.buttonStyle, () -> InspectorWindow.instance.setItem(object)));
 
-        if(object.getChildren().length>0){
+        if(object.sceneRef.getChildren().length>0){
             if(i == 0){
                 children.add(new Label("Children:"));
             }
@@ -30,8 +31,8 @@ public class HierarchyWindow extends UIWindow {
                 children.add(new Label("Children^" + (i+1) + ":"));
 
             }
-            for (GameObject c :
-                    object.getChildren()) {
+            for (SceneObject c :
+                    object.children) {
                 addItem(c,i+1);
             }
 
