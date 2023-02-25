@@ -2,9 +2,9 @@ package org.JE;
 
 import JE.IO.UserInput.Keyboard.Keyboard;
 import JE.Manager;
-import JE.Objects.GameObject;
 import JE.Scene.Scene;
 import JE.UI.GetScaledPosition;
+import org.JE.EditorUI.Elements.SceneObject;
 import org.JE.EditorUI.FileExplorer;
 import org.JE.EditorUI.FileViewer;
 import org.JE.EditorUI.HierarchyWindow;

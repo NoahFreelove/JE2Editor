@@ -1,17 +1,18 @@
 package org.JE.EditorUI;
 
 
+import JE.Objects.Scripts.Base.Script;
 import JE.UI.UIObjects.UIWindow;
 import org.JE.EditorUI.Elements.ScriptElement;
-import org.JE.SceneObject;
-import org.JE.ScriptElement.ScriptObject;
+import org.JE.EditorUI.Elements.SceneObject;
+import org.JE.ScriptElement.AddScriptButton;
 import org.joml.Vector2f;
 
 import static org.lwjgl.nuklear.Nuklear.*;
 
 public class InspectorWindow extends UIWindow {
     public static InspectorWindow instance = new InspectorWindow(new Vector2f(200,0));
-    private SceneObject selected = new SceneObject();
+    public SceneObject selected = new SceneObject();
 
     public InspectorWindow(Vector2f pos){
         super("Inspector");
@@ -24,9 +25,10 @@ public class InspectorWindow extends UIWindow {
         selected = object;
         children.clear();
 
-        for (ScriptObject c :
+        for (Script c :
                 selected.scripts) {
-            children.add(new ScriptElement(c.scriptRef));
+            children.add(new ScriptElement(c));
         }
+        children.add(new AddScriptButton(object));
     }
 }

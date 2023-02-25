@@ -2,6 +2,7 @@ package org.JE.ScriptElement.UIPairs;
 
 import JE.UI.UIElements.UIElement;
 import JE.Window.UIHandler;
+import org.JE.EditorUI.StringFormatter;
 import org.JE.ScriptElement.FieldType;
 import org.lwjgl.nuklear.NkContext;
 
@@ -23,7 +24,7 @@ public class FloatField extends FieldUIPair {
     public FloatField(Field f, Object ref, String label, float min, float value, float max, float step, float incPerPixel) {
         super(f, FieldType.FLOAT,ref);
         this.context = UIHandler.nuklearContext;
-        this.label = label;
+        this.label = StringFormatter.capSplit(label);
         this.min = min;
         this.value[0] = value;
         this.max = max;

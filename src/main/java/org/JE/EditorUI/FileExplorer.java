@@ -54,6 +54,7 @@ public class FileExplorer extends UIWindow {
         {
             case "png", "jpg" -> Filetype.IMAGE;
             case "ttf" -> Filetype.FONT;
+            case "txt" -> Filetype.TEXT;
             default -> Filetype.UNKNOWN;
         };
     }

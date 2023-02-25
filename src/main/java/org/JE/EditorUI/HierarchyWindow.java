@@ -1,11 +1,10 @@
 package org.JE.EditorUI;
 
-import JE.Objects.GameObject;
 import JE.UI.UIElements.Buttons.StyledButton;
 
 import JE.UI.UIElements.Label;
 import JE.UI.UIObjects.UIWindow;
-import org.JE.SceneObject;
+import org.JE.EditorUI.Elements.SceneObject;
 import org.joml.Vector2f;
 
 import static org.lwjgl.nuklear.Nuklear.*;

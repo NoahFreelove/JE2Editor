@@ -1,39 +1,39 @@
-package org.JE;
+package org.JE.EditorUI.Elements;
 
 import JE.Objects.GameObject;
 import JE.Objects.Identity;
+import JE.Objects.Scripts.Base.Script;
 import JE.Objects.Scripts.Common.Transform;
 import JE.Rendering.Shaders.ShaderProgram;
 import JE.Rendering.Texture;
-import org.JE.ScriptElement.ScriptObject;
 import org.joml.Vector2f;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SceneObject{
-    public ArrayList<ScriptObject> scripts = new ArrayList<>();
+    public ArrayList<Script> scripts = new ArrayList<>();
     public ArrayList<SceneObject> children = new ArrayList<>();
     public GameObject sceneRef;
     public SceneObject(){
         sceneRef = new GameObject();
-        scripts.add(new ScriptObject(new Transform()));
+        scripts.add(new Transform());
 
     }
-    public SceneObject(Identity id, Texture image, Vector2f Scale, ScriptObject[] componentObjects){
+    public SceneObject(Identity id, Texture image, Vector2f Scale, Script[] componentObjects){
         sceneRef = GameObject.Sprite(ShaderProgram.spriteShader(), image);
         sceneRef.setIdentity(id);
         sceneRef.getTransform().setScale(Scale);
-        scripts.add(new ScriptObject(new Transform()));
+        scripts.add(new Transform());
         scripts.addAll(Arrays.asList(componentObjects));
     }
 
-    public SceneObject(Identity id, Texture image, Vector2f Scale, ScriptObject[] componentObjects, SceneObject[] children){
+    public SceneObject(Identity id, Texture image, Vector2f Scale, Script[] componentObjects, SceneObject[] children){
         sceneRef = GameObject.Sprite(ShaderProgram.spriteShader(), image);
         sceneRef.setIdentity(id);
         sceneRef.getTransform().setScale(Scale);
         this.children.addAll(Arrays.asList(children));
-        scripts.add(new ScriptObject(new Transform()));
+        scripts.add(new Transform());
         scripts.addAll(Arrays.asList(componentObjects));
     }
 
