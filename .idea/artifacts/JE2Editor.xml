@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="JE2Editor">
+    <output-path>$PROJECT_DIR$/out/artifacts/JE2Editor</output-path>
+    <root id="archive" name="JE2Editor.jar">
+      <element id="module-output" name="JE2Editor" />
+      <element id="library" level="project" name="JE2" />
+    </root>
+  </artifact>
+</component>

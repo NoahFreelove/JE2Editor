@@ -38,3 +38,4 @@ resources/
 ### Mac OS ###
 .DS_Store
 bin/
+out/
