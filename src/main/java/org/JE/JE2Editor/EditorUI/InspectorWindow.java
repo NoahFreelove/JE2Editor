@@ -24,10 +24,14 @@ public class InspectorWindow extends UIWindow {
         selected = object;
         children.clear();
 
+        children.add(new IdentityChanger(object));
+
         for (Script c :
                 selected.scripts) {
             children.add(new ScriptElement(c));
         }
         children.add(new AddScriptButton(object));
+        children.add(new DeleteObjectButton(object));
     }
+
 }

@@ -11,6 +11,7 @@ public enum FieldType {
     LONG,
     BYTE,
     GAMEOBJECT,
+    COLOR,
     SCRIPT,
     OBJECT
 }

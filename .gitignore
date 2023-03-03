@@ -39,3 +39,4 @@ resources/
 .DS_Store
 bin/
 out/
+*.log

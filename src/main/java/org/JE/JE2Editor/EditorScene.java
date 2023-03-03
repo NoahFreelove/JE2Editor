@@ -105,6 +105,13 @@ public class EditorScene extends Scene {
             worldObjects.add(object);
         resetHierarchy();
     }
+
+    public void removeFromScene(SceneObject object){
+        remove(object.sceneRef);
+        worldObjects.remove(object);
+        resetInspector();
+        resetHierarchy();
+    }
     public SceneObject[] getObjects(){
         return worldObjects.toArray(new SceneObject[0]);
     }

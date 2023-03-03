@@ -9,6 +9,16 @@ import org.JE.JE2Editor.EditorUI.StringFormatter;
 import org.JE.JE2Editor.ScriptElement.FieldType;
 import org.JE.JE2Editor.ScriptElement.RemoveScriptButton;
 import org.JE.JE2Editor.ScriptElement.UIPairs.*;
+import org.JE.JE2.Annotations.HideFromInspector;
+import org.JE.JE2.Objects.GameObject;
+import org.JE.JE2.Objects.Scripts.Base.Script;
+import org.JE.JE2.UI.UIElements.Style.Color;
+import org.JE.JE2.UI.UIElements.UIElement;
+import org.JE.JE2.Window.UIHandler;
+import org.JE.JE2Editor.EditorUI.StringFormatter;
+import org.JE.JE2Editor.ScriptElement.FieldType;
+import org.JE.JE2Editor.ScriptElement.RemoveScriptButton;
+import org.JE.JE2Editor.ScriptElement.UIPairs.*;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.nuklear.*;
@@ -92,6 +102,7 @@ public class ScriptElement extends UIElement {
         else if(fieldValue instanceof String str){ return new StringField(field, str, ref, field.getName()); }
         else if(fieldValue instanceof Integer i){ return new IntField(field, field.getName(), ref,-10000,i,10000); }
         //else if(fieldValue instanceof Integer[] i){ return new ArrayWrapperField(field, FieldType.INT, i); }
+        else if(fieldValue instanceof Color c){ return new ColorField(field, ref,c, field.getName());}
 
         else if(fieldValue instanceof Float f){ return new FloatField(field,ref, field.getName(), -10000, f, 10000, 0.1f, 0.1f, true);}
         else if(fieldValue instanceof Double d){return new DoubleField(field,ref, field.getName(), -10000, d, 10000, 0.1f, 0.1f, true);}
