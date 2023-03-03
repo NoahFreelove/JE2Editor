@@ -23,12 +23,9 @@ public class MultiLine extends UIElement {
     public void set(String[] lines, int alignment, Color color){
         this.lines = lines;
         this.labels = new Label[lines.length];
-        int i = 0;
-        for (String str :
-                lines) {
+        for (int i=0;i<lines.length;i++){
             labels[i] = new Label(lines[i], alignment);
             labels[i].textColor = color;
-            i++;
         }
     }
 }
