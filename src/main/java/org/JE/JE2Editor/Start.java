@@ -19,10 +19,10 @@ public class Start {
         CameraController cc = new CameraController();
         cc.camRef = camera;
         camObject.addScript(cc);
+        Manager.setScene(EditorScene.instance);
+        LoadScene.loadSceneFromFile(defaultEditorScene, "Scene");
+
         EditorScene.instance.add(camObject);
         EditorScene.instance.setCamera(camera);
-        Manager.setScene(EditorScene.instance);
-        EditorScene.instance.reset();
-        LoadScene.loadSceneFromFile(defaultEditorScene, "Scene");
     }
 }

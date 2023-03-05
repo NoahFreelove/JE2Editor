@@ -4,8 +4,11 @@ import org.JE.JE2.Objects.GameObject;
 import org.JE.JE2.Objects.Identity;
 import org.JE.JE2.Objects.Scripts.Base.Script;
 import org.JE.JE2.Objects.Scripts.Common.Transform;
+import org.JE.JE2.Rendering.Renderers.SpriteRenderer;
 import org.JE.JE2.Rendering.Shaders.ShaderProgram;
 import org.JE.JE2.Rendering.Texture;
+import org.JE.JE2.Resources.ResourceLoader;
+import org.JE.JE2Editor.Tools.TransformUpdater;
 import org.joml.Vector2f;
 
 import java.io.ByteArrayOutputStream;
@@ -22,18 +25,31 @@ public class SceneObject{
     public SceneObject(){
         sceneRef = new GameObject();
         scripts.add(new Transform());
+        sceneRef.addScript(new TransformUpdater((Transform) scripts.get(0)));
+        SpriteRenderer sr = new SpriteRenderer(ShaderProgram.spriteShader());
+        sr.setTexture(new Texture(ResourceLoader.getBytes("texture1.png")));
+        sr.setNormalTexture(new Texture(ResourceLoader.getBytes("texture1_N.png")));
+        sceneRef.addScript(sr);
     }
     public SceneObject(Identity id, Texture image, Vector2f Scale, Script[] componentObjects){
         sceneRef = GameObject.Sprite(ShaderProgram.spriteShader(), image);
         sceneRef.setIdentity(id);
         sceneRef.getTransform().setScale(Scale);
         scripts.add(new Transform());
+        sceneRef.addScript(new TransformUpdater((Transform) scripts.get(0)));
         scripts.addAll(Arrays.asList(componentObjects));
-
+        SpriteRenderer sr = new SpriteRenderer(ShaderProgram.spriteShader());
+        sr.setTexture(new Texture(ResourceLoader.getBytes("texture1.png")));
+        sr.setNormalTexture(new Texture(ResourceLoader.getBytes("texture1_N.png")));
+        sceneRef.addScript(sr);
     }
     public SceneObject(GameObject reference){
         sceneRef = reference;
         scripts.addAll(reference.getScripts());
+        SpriteRenderer sr = new SpriteRenderer(ShaderProgram.spriteShader());
+        sr.setTexture(new Texture(ResourceLoader.getBytes("texture1.png")));
+        sr.setNormalTexture(new Texture(ResourceLoader.getBytes("texture1_N.png")));
+        sceneRef.addScript(sr);
     }
 
     public SceneObject(Identity id, Texture image, Vector2f Scale, Script[] componentObjects, SceneObject[] children){
@@ -42,7 +58,12 @@ public class SceneObject{
         sceneRef.getTransform().setScale(Scale);
         this.children.addAll(Arrays.asList(children));
         scripts.add(new Transform());
+        sceneRef.addScript(new TransformUpdater((Transform) scripts.get(0)));
         scripts.addAll(Arrays.asList(componentObjects));
+        SpriteRenderer sr = new SpriteRenderer(ShaderProgram.spriteShader());
+        sr.setTexture(new Texture(ResourceLoader.getBytes("texture1.png")));
+        sr.setNormalTexture(new Texture(ResourceLoader.getBytes("texture1_N.png")));
+        sceneRef.addScript(sr);
     }
 
     @Override

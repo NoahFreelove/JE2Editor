@@ -18,9 +18,9 @@ public class Vec3Field extends FieldUIPair {
         super(field, FieldType.VEC3, ref);
         this.value = vector3f;
         this.title = StringFormatter.capSplit(title);
-        x = new FloatField(field, vector3f, "X", -10000, value.x, 10000, 1f, 0.1f, false);
-        y = new FloatField(field, vector3f, "Y", -10000, value.y, 10000, 1f, 0.1f, false);
-        z = new FloatField(field, vector3f, "Z", -10000, value.z, 10000, 1f, 0.1f, false);
+        x = new FloatField(field, value, title + "X", -10000, value.x, 10000, 1f, 0.1f, false);
+        y = new FloatField(field, value,  title + "Y", -10000, value.y, 10000, 1f, 0.1f, false);
+        z = new FloatField(field, value,  title + "Z", -10000, value.z, 10000, 1f, 0.1f, false);
     }
     @Override
     protected void render(){

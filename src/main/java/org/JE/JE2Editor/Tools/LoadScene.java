@@ -33,12 +33,14 @@ public class LoadScene {
         EditorScene.instance.reset();
 
         GameObject gameObject = new GameObject();
-
+        SceneObject sceneObject = new SceneObject(gameObject);
         for (String line : lines) {
-            if(line.equals("start"))
+            if(line.equals("start")) {
                 gameObject = new GameObject();
+                sceneObject = new SceneObject(gameObject);
+            }
             else if(line.equals("end"))
-                EditorScene.instance.addToScene(new SceneObject(gameObject));
+                EditorScene.instance.addToScene(sceneObject);
             else if(line.startsWith("id:"))
                 gameObject.setIdentity((Identity)deserialize(line.substring(3)));
             else{
@@ -49,10 +51,13 @@ public class LoadScene {
 
                 if(readScript instanceof Transform t){
                     t.setAttachedObject(gameObject);
+                    sceneObject.scripts.set(0,t);
+                    sceneObject.sceneRef.addScript(new TransformUpdater(t));
+
                     gameObject.setScript(0, t);
                 }
                 else {
-                    gameObject.addScript(readScript);
+                    sceneObject.scripts.add(readScript);
                 }
             }
         }

@@ -3,6 +3,7 @@ package org.JE.JE2Editor.EditorUI.Tools;
 import org.JE.JE2.UI.UIElements.Buttons.Button;
 import org.JE.JE2.Window.WindowPreferences;
 import org.JE.JE2Editor.Tools.ProjectInfo;
+import org.JE.JECompiler.JarCreator;
 
 public class BuildGameButton extends Button {
 
@@ -17,6 +18,7 @@ public class BuildGameButton extends Button {
     }
 
     private void build(){
+        JarCreator.logJarCompilation = true;
         org.JE.JECompiler.Tools.startCompileChain(ProjectInfo.sceneDir, ProjectInfo.runPath, ProjectInfo.runPackage,
                 new WindowPreferences(1920,1080, "Game"), ProjectInfo.sourceDirectory, ProjectInfo.outPath,
                 ProjectInfo.javaC, ProjectInfo.je2Jar, ProjectInfo.jarName, ProjectInfo.jarC,
