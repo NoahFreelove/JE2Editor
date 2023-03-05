@@ -2,18 +2,22 @@ package org.JE.JE2Editor;
 
 import org.JE.JE2.IO.UserInput.Keyboard.Keyboard;
 import org.JE.JE2.Manager;
+import org.JE.JE2.Resources.ResourceLoader;
 import org.JE.JE2.Scene.Scene;
 import org.JE.JE2.UI.GetScaledPosition;
 import org.JE.JE2.UI.UIElements.Buttons.Button;
+import org.JE.JE2.UI.UIElements.Label;
 import org.JE.JE2.UI.UIElements.Spacer;
+import org.JE.JE2Editor.EditorUI.*;
 import org.JE.JE2Editor.EditorUI.Elements.SceneObject;
-import org.JE.JE2Editor.EditorUI.FileExplorer;
-import org.JE.JE2Editor.EditorUI.FileViewer;
-import org.JE.JE2Editor.EditorUI.HierarchyWindow;
-import org.JE.JE2Editor.EditorUI.InspectorWindow;
+import org.JE.JE2Editor.EditorUI.Tools.BuildGameButton;
+import org.JE.JE2Editor.EditorUI.Tools.CompileScriptsButton;
+import org.JE.JE2Editor.EditorUI.Tools.ToolsWindow;
 import org.JE.JE2Editor.Tools.LoadScene;
+import org.JE.JE2Editor.Tools.ProjectInfo;
 import org.JE.JE2Editor.Tools.SaveScene;
 import org.joml.Vector2f;
+import org.lwjgl.nuklear.Nuklear;
 
 import java.util.ArrayList;
 
@@ -27,6 +31,7 @@ public class EditorScene extends Scene {
         addUI(InspectorWindow.instance);
         addUI(FileExplorer.instance);
         addUI(FileViewer.instance);
+        addUI(ToolsWindow.instance);
 
         Keyboard.keyPressedEvents.add((code, mods) -> {
             if(Keyboard.nameToCode("F1") == code){
@@ -42,6 +47,7 @@ public class EditorScene extends Scene {
                 resetHierarchy();
                 resetInspector();
                 resetFileExplorer();
+                resetToolsWindow();
             }
         });
     }
@@ -52,9 +58,29 @@ public class EditorScene extends Scene {
         }
         else{
             FileExplorer.instance.setPos(GetScaledPosition.getScaledPosition(0f,80f,new Vector2f(1280,720), new Vector2f(Manager.getWindowSize().x(),Manager.getWindowSize().y())));
-            FileExplorer.instance.setSize(GetScaledPosition.getScaledPosition(100f,20f,new Vector2f(1280,720), new Vector2f(Manager.getWindowSize().x(),Manager.getWindowSize().y())));
+            FileExplorer.instance.setSize(GetScaledPosition.getScaledPosition(80f,20f,new Vector2f(1280,720), new Vector2f(Manager.getWindowSize().x(),Manager.getWindowSize().y())));
         }
         FileExplorer.instance.refresh();
+    }
+
+    public void resetToolsWindow(){
+        if(!world.UI.contains(ToolsWindow.instance))
+            world.UI.add(ToolsWindow.instance);
+
+        ToolsWindow.instance.children.clear();
+        ToolsWindow.instance.children.add(new Label("Tools", Nuklear.NK_TEXT_CENTERED));
+
+        ToolsWindow.instance.setPos(GetScaledPosition.getScaledPosition(80f,80f,new Vector2f(1280,720), new Vector2f(Manager.getWindowSize().x(),Manager.getWindowSize().y())));
+        ToolsWindow.instance.setSize(GetScaledPosition.getScaledPosition(20f,20f,new Vector2f(1280,720), new Vector2f(Manager.getWindowSize().x(),Manager.getWindowSize().y())));
+        ToolsWindow.instance.children.add(new Button("Save Scene", () -> {
+            SaveScene.saveSceneToFile(ProjectInfo.activeScenePath, EditorScene.instance.getObjects());
+        }));
+
+        ToolsWindow.instance.children.add(new Button("Load Scene", () -> {
+            LoadScene.loadSceneFromFile(ResourceLoader.getBytesAsString(ProjectInfo.activeScenePath), "scene");
+        }));
+        ToolsWindow.instance.children.add(new CompileScriptsButton());
+        ToolsWindow.instance.children.add(new BuildGameButton());
     }
 
     public void resetInspector(){
@@ -86,13 +112,7 @@ public class EditorScene extends Scene {
                 SceneObject object = new SceneObject();
                 addToScene(object);
             }));
-            HierarchyWindow.instance.children.add(new Button("Save Scene", () -> {
-                SaveScene.saveSceneToFile("bin/","scene.JEScene", EditorScene.instance.getObjects());
-            }));
 
-            HierarchyWindow.instance.children.add(new Button("Load Scene", () -> {
-                LoadScene.loadSceneFromFile("bin/scene.JEScene");
-            }));
             HierarchyWindow.instance.setSize(GetScaledPosition.getScaledPosition(20f,80f,new Vector2f(1280,720), new Vector2f(Manager.getWindowSize().x(),Manager.getWindowSize().y())));
         }
     }
@@ -122,5 +142,7 @@ public class EditorScene extends Scene {
         world.lights.clear();
         resetHierarchy();
         resetInspector();
+        resetToolsWindow();
+        resetFileExplorer();
     }
 }

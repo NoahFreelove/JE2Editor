@@ -40,3 +40,4 @@ resources/
 bin/
 out/
 *.log
+*.txt

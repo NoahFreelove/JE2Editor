@@ -1,7 +1,5 @@
 package org.JE.JE2Editor.EditorUI;
 
-import org.JE.JE2.UI.UIElements.Buttons.StyledButton;
-
 import org.JE.JE2.UI.UIElements.Label;
 import org.JE.JE2.UI.UIObjects.UIWindow;
 import org.JE.JE2Editor.EditorUI.Elements.SceneObject;
@@ -20,7 +18,7 @@ public class HierarchyWindow extends UIWindow {
     }
 
     public void addItem(SceneObject object, int i){
-        children.add(new StyledButton(object.sceneRef.identity().name + " : " + object.sceneRef.identity().tag, Styles.buttonStyle, () -> InspectorWindow.instance.setItem(object)));
+        children.add(new ObjectHierarchyButton(object));
 
         if(object.sceneRef.getChildren().length>0){
             if(i == 0){

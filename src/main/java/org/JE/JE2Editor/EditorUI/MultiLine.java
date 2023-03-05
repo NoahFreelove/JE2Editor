@@ -14,8 +14,7 @@ public class MultiLine extends UIElement {
 
     @Override
     protected void render() {
-        for (Label l :
-                labels) {
+        for (Label l : labels) {
             l.requestRender();
         }
     }

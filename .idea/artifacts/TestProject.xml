@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="JE2Editor">
-    <output-path>$PROJECT_DIR$/out/artifacts/JE2Editor</output-path>
+  <artifact type="jar" name="TestProject">
+    <output-path>$PROJECT_DIR$/out/artifacts/TestProject</output-path>
     <root id="archive" name="JE2Editor.jar">
       <element id="module-output" name="JE2Editor" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../JE2Compiler/out/artifacts/JECompiler/JECompiler.jar" path-in-jar="/" />

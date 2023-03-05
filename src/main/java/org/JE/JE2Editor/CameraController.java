@@ -35,7 +35,7 @@ public class CameraController extends Script {
         }*/
 
         if(Keyboard.isKeyPressed(Keyboard.nameToCode("2"))){
-            camRef.zoomMultiplier = MathUtils.clamp(camRef.zoomMultiplier+0.01f, 0.1f, 10f);
+            camRef.zoomMultiplier = MathUtils.clamp(camRef.zoomMultiplier+0.01f, 0.1f, 2f);
 
         }
         if(Keyboard.isKeyPressed(Keyboard.nameToCode("1"))){

@@ -30,8 +30,7 @@ public class IdentityChanger extends UIElement {
         name.requestRender();
         tagLabel.requestRender();
         tag.requestRender();
-        ref.sceneRef.identity().name = name.getValue();
-        ref.sceneRef.identity().tag = tag.getValue();
+        ref.sceneRef.setIdentity(name.getValue(), tag.getValue());
     }
 
 }

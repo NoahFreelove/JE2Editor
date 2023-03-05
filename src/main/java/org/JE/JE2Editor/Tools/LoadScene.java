@@ -8,18 +8,17 @@ import org.JE.JE2Editor.EditorScene;
 import org.JE.JE2Editor.EditorUI.Elements.SceneObject;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
-import java.util.Scanner;
 
 public class LoadScene {
 
-    public static void loadSceneFromFile(String filepath) {
-        ArrayList<String> lines = new ArrayList<>();
+    public static void loadSceneFromFile(String[] inputLines, String name) {
+        ArrayList<String> lines = new ArrayList<>(Arrays.asList(inputLines));
 
-        try {
+        /*try {
             Scanner scanner = new Scanner(new File(filepath));
 
             // read all lines to String[]
@@ -29,7 +28,7 @@ public class LoadScene {
         }catch (Exception e){
             System.out.println("error while reading from file: " + filepath);
             e.printStackTrace();
-        }
+        }*/
 
         EditorScene.instance.reset();
 
@@ -44,7 +43,9 @@ public class LoadScene {
                 gameObject.setIdentity((Identity)deserialize(line.substring(3)));
             else{
                 Script readScript = (Script) deserialize(line);
-                readScript.load();
+                //readScript.load();
+                // we dont want to load script behaviour in the editor for safety reasons
+                // (and it doesnt work)
 
                 if(readScript instanceof Transform t){
                     t.setAttachedObject(gameObject);
@@ -55,6 +56,7 @@ public class LoadScene {
                 }
             }
         }
+        ProjectInfo.activeScenePath = name + ".JEScene";
 
     }
     private static Object deserialize(String input){
