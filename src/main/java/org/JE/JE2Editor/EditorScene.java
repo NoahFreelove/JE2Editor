@@ -12,6 +12,7 @@ import org.JE.JE2Editor.EditorUI.*;
 import org.JE.JE2Editor.EditorUI.Elements.SceneObject;
 import org.JE.JE2Editor.EditorUI.Tools.BuildGameButton;
 import org.JE.JE2Editor.EditorUI.Tools.CompileScriptsButton;
+import org.JE.JE2Editor.EditorUI.Tools.RunGameButton;
 import org.JE.JE2Editor.EditorUI.Tools.ToolsWindow;
 import org.JE.JE2Editor.Tools.LoadScene;
 import org.JE.JE2Editor.Tools.ProjectInfo;
@@ -80,6 +81,8 @@ public class EditorScene extends Scene {
             LoadScene.loadSceneFromFile(ResourceLoader.getBytesAsString(ProjectInfo.activeScenePath), "scene");
         }));
         ToolsWindow.instance.children.add(new CompileScriptsButton());
+        ToolsWindow.instance.children.add(new RunGameButton());
+
         ToolsWindow.instance.children.add(new BuildGameButton());
     }
 

@@ -13,6 +13,8 @@ public class ProjectInfo {
     public static String jarC = "";
     public static String je2ScriptJar = "";
     public static String je2CompilerJar = "";
+    public static String java = "java";
+    public static String[] semicolonSeparatedDependencies = new String[0];
 
     public static void loadProjectInfo(String[] projectFile){
         StringBuilder fileData = new StringBuilder(1000);
@@ -54,6 +56,12 @@ public class ProjectInfo {
             }
             if(line.startsWith("je2CompilerJar:")){
                 ProjectInfo.je2CompilerJar = line.replace("je2CompilerJar:", "").trim();
+            }
+            if(line.startsWith("java:")){
+                ProjectInfo.java = line.replace("java:", "").trim();
+            }
+            if(line.startsWith("semicolonSeparatedDependencies:")){
+                ProjectInfo.semicolonSeparatedDependencies = line.replace("semicolonSeparatedDependencies:", "").trim().split(";");
             }
         }
     }
