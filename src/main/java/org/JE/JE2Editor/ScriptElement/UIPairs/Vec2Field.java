@@ -1,5 +1,6 @@
 package org.JE.JE2Editor.ScriptElement.UIPairs;
 
+import org.JE.JE2.UI.UIElements.Style.Color;
 import org.JE.JE2.Window.UIHandler;
 import org.JE.JE2Editor.EditorUI.StringFormatter;
 import org.JE.JE2Editor.ScriptElement.FieldType;
@@ -7,6 +8,8 @@ import org.joml.Vector2f;
 import org.lwjgl.nuklear.Nuklear;
 
 import java.lang.reflect.Field;
+
+import static org.lwjgl.nuklear.Nuklear.nk_label_colored;
 
 public class Vec2Field extends FieldUIPair{
 
@@ -25,7 +28,7 @@ public class Vec2Field extends FieldUIPair{
 
     @Override
     protected void render(){
-        Nuklear.nk_label(UIHandler.nuklearContext,title, Nuklear.NK_TEXT_ALIGN_LEFT);
+        nk_label_colored(UIHandler.nuklearContext,title,Nuklear.NK_TEXT_ALIGN_LEFT, Color.WHITE.nkColor());
         x.render();
         y.render();
         value.x = x.getValue();

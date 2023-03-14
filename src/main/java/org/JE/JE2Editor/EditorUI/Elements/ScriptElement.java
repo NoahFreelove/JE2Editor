@@ -3,15 +3,6 @@ package org.JE.JE2Editor.EditorUI.Elements;
 import org.JE.JE2.Annotations.HideFromInspector;
 import org.JE.JE2.Objects.GameObject;
 import org.JE.JE2.Objects.Scripts.Base.Script;
-import org.JE.JE2.UI.UIElements.UIElement;
-import org.JE.JE2.Window.UIHandler;
-import org.JE.JE2Editor.EditorUI.StringFormatter;
-import org.JE.JE2Editor.ScriptElement.FieldType;
-import org.JE.JE2Editor.ScriptElement.RemoveScriptButton;
-import org.JE.JE2Editor.ScriptElement.UIPairs.*;
-import org.JE.JE2.Annotations.HideFromInspector;
-import org.JE.JE2.Objects.GameObject;
-import org.JE.JE2.Objects.Scripts.Base.Script;
 import org.JE.JE2.UI.UIElements.Style.Color;
 import org.JE.JE2.UI.UIElements.UIElement;
 import org.JE.JE2.Window.UIHandler;
@@ -21,14 +12,16 @@ import org.JE.JE2Editor.ScriptElement.RemoveScriptButton;
 import org.JE.JE2Editor.ScriptElement.UIPairs.*;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
-import org.lwjgl.nuklear.*;
+import org.lwjgl.nuklear.NkColor;
+import org.lwjgl.nuklear.Nuklear;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.lwjgl.nuklear.Nuklear.*;
+import static org.lwjgl.nuklear.Nuklear.nk_label_colored;
+import static org.lwjgl.nuklear.Nuklear.nk_spacer;
 
 public class ScriptElement extends UIElement {
     private final Script ref;
@@ -70,7 +63,7 @@ public class ScriptElement extends UIElement {
     }
     @Override
     protected void render() {
-        Nuklear.nk_label(UIHandler.nuklearContext, scriptTitle, Nuklear.NK_TEXT_CENTERED);
+        nk_label_colored(UIHandler.nuklearContext,scriptTitle,Nuklear.NK_TEXT_ALIGN_LEFT, Color.WHITE.nkColor());
         // for each public field in the component, display it with a label. Don't include those with the @HideInInspector annotation
         for (FieldUIPair f : visibleFields) {
 
@@ -94,7 +87,9 @@ public class ScriptElement extends UIElement {
 
         try {
             fieldValue = field.get(ref);
-        } catch (IllegalAccessException e) {
+
+        }
+        catch (IllegalAccessException e) {
             e.printStackTrace();
         }
         if(fieldValue instanceof Vector3f vec3){ return new Vec3Field(field, vec3, ref, field.getName()); }
@@ -102,7 +97,9 @@ public class ScriptElement extends UIElement {
         else if(fieldValue instanceof String str){ return new StringField(field, str, ref, field.getName()); }
         else if(fieldValue instanceof Integer i){ return new IntField(field, field.getName(), ref,-10000,i,10000); }
         //else if(fieldValue instanceof Integer[] i){ return new ArrayWrapperField(field, FieldType.INT, i); }
-        else if(fieldValue instanceof Color c){ return new ColorField(field, ref,c, field.getName());}
+        else if(fieldValue instanceof Color c){
+            return new ColorField(field, ref,c, field.getName());
+        }
 
         else if(fieldValue instanceof Float f){ return new FloatField(field,ref, field.getName(), -10000, f, 10000, 0.1f, 0.1f, true);}
         else if(fieldValue instanceof Double d){return new DoubleField(field,ref, field.getName(), -10000, d, 10000, 0.1f, 0.1f, true);}
