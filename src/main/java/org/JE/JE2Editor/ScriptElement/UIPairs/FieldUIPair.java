@@ -3,6 +3,8 @@ package org.JE.JE2Editor.ScriptElement.UIPairs;
 import org.JE.JE2.UI.UIElements.Style.Color;
 import org.JE.JE2.UI.UIElements.UIElement;
 import org.JE.JE2.Window.UIHandler;
+import org.JE.JE2Editor.EditorUI.MultiLine;
+import org.JE.JE2Editor.ScriptElement.EditorEnumHint;
 import org.JE.JE2Editor.ScriptElement.FieldType;
 import org.lwjgl.nuklear.Nuklear;
 
@@ -14,6 +16,7 @@ public class FieldUIPair extends UIElement {
     public Field field;
     public FieldType ft;
     public Object ref;
+    public EditorEnumHint hint;
     public FieldUIPair(Field field, FieldType ft, Object ref) {
         this.field = field;
         this.ft = ft;

@@ -2,12 +2,17 @@ package org.JE.JE2Editor.Tools;
 
 import org.JE.JE2.Objects.GameObject;
 import org.JE.JE2.Objects.Identity;
+import org.JE.JE2.Objects.Lights.Light;
 import org.JE.JE2.Objects.Scripts.Base.Script;
 import org.JE.JE2.Objects.Scripts.Common.Transform;
+import org.JE.JE2.Rendering.Renderers.SpriteRenderer;
+import org.JE.JE2.Rendering.Texture;
+import org.JE.JE2.Resources.ResourceLoader;
 import org.JE.JE2Editor.EditorScene;
 import org.JE.JE2Editor.EditorUI.Elements.SceneObject;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,8 +44,36 @@ public class LoadScene {
                 gameObject = new GameObject();
                 sceneObject = new SceneObject(gameObject);
             }
-            else if(line.equals("end"))
+            else if(line.equals("end")) {
                 EditorScene.instance.addToScene(sceneObject);
+                boolean hasRenderer = false;
+                for (Script s :
+                        sceneObject.scripts) {
+                    if(s instanceof SpriteRenderer sr){
+                        hasRenderer = true;
+                        String fp = sr.getTextureFp();
+
+                        if(ResourceLoader.get(fp) != null){
+                            File f = new File(ResourceLoader.get(fp));
+                            if(!f.exists() || f.isDirectory()){
+                                continue;
+                            }
+                            sceneObject.sceneRef.getSpriteRenderer().setTexture(new Texture(ResourceLoader.getBytes(fp)));
+                        }
+                        String nfp = sr.getNormalFp();
+
+                        if(ResourceLoader.get(nfp) != null){
+                            File f = new File(ResourceLoader.get(nfp));
+                            if(!f.exists() || f.isDirectory()){
+                                continue;
+                            }
+                            sceneObject.sceneRef.getSpriteRenderer().setTexture(new Texture(ResourceLoader.getBytes(nfp)));
+                        }
+                    }
+                }
+                if(!hasRenderer)
+                    sceneObject.sceneRef.getSpriteRenderer().invalidateShader();
+            }
             else if(line.startsWith("id:"))
                 gameObject.setIdentity((Identity)deserialize(line.substring(3)));
             else{
@@ -56,14 +89,18 @@ public class LoadScene {
 
                     gameObject.setScript(0, t);
                 }
+                else if (readScript instanceof Light light){
+                    EditorScene.instance.addLight(light);
+                    sceneObject.scripts.add(light);
+                }
                 else {
                     sceneObject.scripts.add(readScript);
                 }
             }
         }
         ProjectInfo.activeScenePath = name + ".JEScene";
-
     }
+
     private static Object deserialize(String input){
         try {
             byte[] bytes = Base64.getDecoder().decode(input);

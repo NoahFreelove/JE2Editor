@@ -28,7 +28,7 @@ public class InspectorWindow extends UIWindow {
 
         for (Script c :
                 selected.scripts) {
-            children.add(new ScriptElement(c));
+            children.add(new ScriptElement(c, object));
         }
         children.add(new AddScriptButton(object));
         children.add(new DeleteObjectButton(object));

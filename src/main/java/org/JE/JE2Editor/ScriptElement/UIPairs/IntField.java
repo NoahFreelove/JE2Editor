@@ -1,5 +1,6 @@
 package org.JE.JE2Editor.ScriptElement.UIPairs;
 
+import org.JE.JE2.UI.UIElements.IntEventChanged;
 import org.JE.JE2.Window.UIHandler;
 import org.JE.JE2Editor.ScriptElement.FieldType;
 
@@ -11,9 +12,11 @@ public class IntField extends FieldUIPair {
 
     private String label;
     private final int[] value = new int[1];
+    private int prevValue = 0;
     private int min = 0;
     private int max = 0;
     private int incPerPixel = 1;
+    public IntEventChanged onChanged = null;
 
     public IntField(Field field, String label, Object ref, int min, int initValue, int max) {
         super(field, FieldType.INT, ref);
@@ -21,6 +24,7 @@ public class IntField extends FieldUIPair {
         this.min = min;
         this.max = max;
         this.value[0] = initValue;
+        prevValue = initValue;
     }
 
     public void setValue(int value) {
@@ -33,11 +37,16 @@ public class IntField extends FieldUIPair {
 
     @Override
     protected void render() {
+        prevValue = value[0];
         nk_property_int(UIHandler.nuklearContext, label, min, value, max, 1, incPerPixel);
         try {
             field.set(ref, value[0]);
         } catch (Exception e) {
             System.out.println("int field err: " + e.getMessage());
+        }
+        if(prevValue != value[0]){
+            if(onChanged !=null)
+                onChanged.run(value[0]);
         }
     }
 }

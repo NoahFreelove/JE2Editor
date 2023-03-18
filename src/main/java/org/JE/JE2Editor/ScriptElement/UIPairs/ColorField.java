@@ -2,6 +2,7 @@ package org.JE.JE2Editor.ScriptElement.UIPairs;
 
 import org.JE.JE2.UI.UIElements.Style.Color;
 import org.JE.JE2.Window.UIHandler;
+import org.JE.JE2Editor.EditorUI.StringFormatter;
 import org.JE.JE2Editor.ScriptElement.FieldType;
 import org.lwjgl.nuklear.NkColor;
 import org.lwjgl.nuklear.Nuklear;
@@ -28,7 +29,7 @@ public class ColorField extends FieldUIPair {
         g[0] = init.g();
         b[0] = init.b();
         a[0] = init.a();
-        this.title = title;
+        this.title = StringFormatter.capAndSplit(title);
         colorRef.setNkColor(NkColor.create());
     }
 

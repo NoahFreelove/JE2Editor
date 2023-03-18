@@ -12,14 +12,16 @@ import java.lang.reflect.Field;
 import static org.lwjgl.nuklear.Nuklear.nk_label_colored;
 
 public class StringField extends FieldUIPair{
-    private TextField tf;
+    public TextField tf;
     private String title;
+
     public StringField(Field field, String defaultValue, Object ref, String title) {
         super(field, FieldType.STRING, ref);
-        this.title = StringFormatter.capSplit(title);
+        this.title = StringFormatter.capAndSplit(title);
         this.tf = new TextField(128);
         tf.setValue(defaultValue);
     }
+
     @Override
     protected void render() {
         nk_label_colored(UIHandler.nuklearContext,title,Nuklear.NK_TEXT_ALIGN_LEFT, Color.WHITE.nkColor());

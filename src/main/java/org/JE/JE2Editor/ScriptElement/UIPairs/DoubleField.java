@@ -23,7 +23,7 @@ public class DoubleField extends FieldUIPair {
     public DoubleField(Field f, Object ref, String label, float min, double value, float max, float step, float incPerPixel, boolean update) {
         super(f, FieldType.FLOAT,ref);
         this.context = UIHandler.nuklearContext;
-        this.label = StringFormatter.capSplit(label);
+        this.label = StringFormatter.capAndSplit(label);
         this.min = min;
         this.value[0] = (float)value;
         this.max = max;

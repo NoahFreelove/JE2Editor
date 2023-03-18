@@ -21,7 +21,7 @@ public class Vec2Field extends FieldUIPair{
     public Vec2Field(Field field, Vector2f value, Object ref, String title) {
         super(field, FieldType.VEC2, ref);
         this.value = value;
-        this.title = StringFormatter.capSplit(title);
+        this.title = StringFormatter.capAndSplit(title);
         x = new FloatField(field, this.value, "X", -10000, this.value.x, 10000, 1f, 0.1f, false);
         y = new FloatField(field, this.value, "Y", -10000, this.value.y, 10000, 1f, 0.1f, false);
     }

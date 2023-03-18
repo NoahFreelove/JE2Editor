@@ -23,7 +23,7 @@ public class FloatField extends FieldUIPair {
     public FloatField(Field f, Object ref, String label, float min, float value, float max, float step, float incPerPixel, boolean update) {
         super(f, FieldType.FLOAT,ref);
         this.context = UIHandler.nuklearContext;
-        this.label = StringFormatter.capSplit(label);
+        this.label = StringFormatter.capAndSplit(label);
         this.min = min;
         this.value[0] = value;
         this.max = max;

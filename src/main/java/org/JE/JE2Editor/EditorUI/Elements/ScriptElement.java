@@ -1,12 +1,18 @@
 package org.JE.JE2Editor.EditorUI.Elements;
 
+import org.JE.JE2.Annotations.EditorEnum;
 import org.JE.JE2.Annotations.HideFromInspector;
 import org.JE.JE2.Objects.GameObject;
 import org.JE.JE2.Objects.Scripts.Base.Script;
+import org.JE.JE2.Rendering.Renderers.Renderer;
+import org.JE.JE2.Rendering.Renderers.SpriteRenderer;
+import org.JE.JE2.Rendering.Texture;
+import org.JE.JE2.Resources.ResourceLoader;
 import org.JE.JE2.UI.UIElements.Style.Color;
 import org.JE.JE2.UI.UIElements.UIElement;
 import org.JE.JE2.Window.UIHandler;
 import org.JE.JE2Editor.EditorUI.StringFormatter;
+import org.JE.JE2Editor.ScriptElement.EditorEnumHint;
 import org.JE.JE2Editor.ScriptElement.FieldType;
 import org.JE.JE2Editor.ScriptElement.RemoveScriptButton;
 import org.JE.JE2Editor.ScriptElement.UIPairs.*;
@@ -15,6 +21,7 @@ import org.joml.Vector3f;
 import org.lwjgl.nuklear.NkColor;
 import org.lwjgl.nuklear.Nuklear;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -30,9 +37,10 @@ public class ScriptElement extends UIElement {
     private ArrayList<FieldUIPair> visibleFields;
     private RemoveScriptButton rsb;
     private String scriptTitle = "";
-
-    public ScriptElement(Script comp){
+    private SceneObject sceneObject;
+    public ScriptElement(Script comp, SceneObject sceneObject){
         this.ref = comp;
+        this.sceneObject = sceneObject;
         Nuklear.nk_rgb(50,50,50,color);
 
         rsb = new RemoveScriptButton(comp);
@@ -61,13 +69,15 @@ public class ScriptElement extends UIElement {
 
         }
     }
+
     @Override
     protected void render() {
         nk_label_colored(UIHandler.nuklearContext,scriptTitle,Nuklear.NK_TEXT_ALIGN_LEFT, Color.WHITE.nkColor());
-        // for each public field in the component, display it with a label. Don't include those with the @HideInInspector annotation
         for (FieldUIPair f : visibleFields) {
 
             try {
+                if(f.hint !=null)
+                    f.hint.requestRender();
                 f.requestRender();
                 Nuklear.nk_spacer(UIHandler.nuklearContext);
 
@@ -82,7 +92,7 @@ public class ScriptElement extends UIElement {
         nk_spacer(UIHandler.nuklearContext);
     }
 
-    public static FieldUIPair getType(Field field, Script ref){
+    private FieldUIPair getType(Field field, Script ref){
         Object fieldValue = null;
 
         try {
@@ -94,8 +104,51 @@ public class ScriptElement extends UIElement {
         }
         if(fieldValue instanceof Vector3f vec3){ return new Vec3Field(field, vec3, ref, field.getName()); }
         else if(fieldValue instanceof Vector2f vec2){ return new Vec2Field(field, vec2, ref, field.getName()); }
-        else if(fieldValue instanceof String str){ return new StringField(field, str, ref, field.getName()); }
-        else if(fieldValue instanceof Integer i){ return new IntField(field, field.getName(), ref,-10000,i,10000); }
+        else if(fieldValue instanceof String str){
+            StringField sf = new StringField(field, str, ref, field.getName());
+            if(field.getName().equals("textureFp") && ref.getClass() == SpriteRenderer.class)
+            {
+                sf.tf.eventChanged = s -> {
+                    if(ResourceLoader.get(s) != null){
+                        File f = new File(ResourceLoader.get(s));
+                        if(f.exists() && !f.isDirectory()){
+                            sceneObject.sceneRef.getSpriteRenderer().setTexture(new Texture(ResourceLoader.getBytes(s)));
+
+                        }
+                    }
+                };
+            }
+            else if(field.getName().equals("normalFp") && ref.getClass() == SpriteRenderer.class)
+            {
+                sf.tf.eventChanged = s -> {
+                    if(ResourceLoader.get(s) != null){
+                        File f = new File(ResourceLoader.get(s));
+                        if(f.exists() && !f.isDirectory()){
+                            sceneObject.sceneRef.getSpriteRenderer().setNormalTexture(new Texture(ResourceLoader.getBytes(s)));
+                        }
+                    }
+                };
+            }
+            return sf;
+        }
+        else if(fieldValue instanceof Integer i){
+            IntField intField = new IntField(field, field.getName(), ref,-10000,i,10000);
+            if(field.isAnnotationPresent(EditorEnum.class)){
+                if(field.getName().equals("defaultShaderIndex") && ref instanceof Renderer)
+                {
+                    intField = new IntField(field, field.getName(), ref,0,i,2);
+                }
+                if(field.getName().equals("drawMode") && ref instanceof Renderer)
+                {
+                    intField = new IntField(field, field.getName(), ref,0,i,9);
+                    intField.onChanged = i1 -> sceneObject.sceneRef.getRenderer().setDrawMode(i1);
+                }
+                EditorEnum hint = field.getAnnotation(EditorEnum.class);
+                intField.hint = new EditorEnumHint(hint.values());
+            }
+
+            return intField;
+        }
         //else if(fieldValue instanceof Integer[] i){ return new ArrayWrapperField(field, FieldType.INT, i); }
         else if(fieldValue instanceof Color c){
             return new ColorField(field, ref,c, field.getName());

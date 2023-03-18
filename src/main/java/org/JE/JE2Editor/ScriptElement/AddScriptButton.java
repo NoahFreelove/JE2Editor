@@ -1,6 +1,8 @@
 package org.JE.JE2Editor.ScriptElement;
 
 import org.JE.JE2.Objects.Scripts.Base.Script;
+import org.JE.JE2.Rendering.Renderers.Renderer;
+import org.JE.JE2.Rendering.Shaders.ShaderProgram;
 import org.JE.JE2.UI.UIElements.Buttons.Button;
 import org.JE.JE2.UI.UIElements.TextField;
 import org.JE.JE2.UI.UIElements.UIElement;
@@ -26,6 +28,8 @@ public class AddScriptButton extends UIElement {
             String className = tf.getValue();
             Class<?> c = Class.forName(className);
             Script s = (Script)c.getConstructor().newInstance();
+            if(s instanceof Renderer)
+                selected.sceneRef.getRenderer().getVAO().setShaderProgram(ShaderProgram.spriteShader());
             selected.scripts.add(s);
             InspectorWindow.instance.setItem(selected);
         }

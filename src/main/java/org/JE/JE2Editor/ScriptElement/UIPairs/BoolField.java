@@ -14,7 +14,7 @@ public class BoolField extends FieldUIPair{
     public BoolField(Field field, boolean defaultValue, Object ref) {
         super(field, FieldType.BOOL, ref);
         this.value = defaultValue;
-        checkbox = new StyledCheckbox(defaultValue, StringFormatter.capSplit(field.getName()), new StyleInfo().setInactiveColor(Color.RED).setPressedColor(Color.GREEN).setHoverColor(Color.GREEN));
+        checkbox = new StyledCheckbox(defaultValue, StringFormatter.capAndSplit(field.getName()), new StyleInfo().setInactiveColor(Color.RED).setPressedColor(Color.GREEN).setHoverColor(Color.GREEN));
     }
 
     @Override

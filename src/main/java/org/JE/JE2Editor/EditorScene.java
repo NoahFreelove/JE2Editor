@@ -10,10 +10,7 @@ import org.JE.JE2.UI.UIElements.Label;
 import org.JE.JE2.UI.UIElements.Spacer;
 import org.JE.JE2Editor.EditorUI.*;
 import org.JE.JE2Editor.EditorUI.Elements.SceneObject;
-import org.JE.JE2Editor.EditorUI.Tools.BuildGameButton;
-import org.JE.JE2Editor.EditorUI.Tools.CompileScriptsButton;
-import org.JE.JE2Editor.EditorUI.Tools.RunGameButton;
-import org.JE.JE2Editor.EditorUI.Tools.ToolsWindow;
+import org.JE.JE2Editor.EditorUI.Tools.*;
 import org.JE.JE2Editor.Tools.LoadScene;
 import org.JE.JE2Editor.Tools.ProjectInfo;
 import org.JE.JE2Editor.Tools.SaveScene;
@@ -84,6 +81,7 @@ public class EditorScene extends Scene {
         ToolsWindow.instance.children.add(new RunGameButton());
 
         ToolsWindow.instance.children.add(new BuildGameButton());
+        ToolsWindow.instance.children.add(new ToggleLightingModeButton());
     }
 
     public void resetInspector(){
@@ -113,6 +111,8 @@ public class EditorScene extends Scene {
 
             HierarchyWindow.instance.children.add(new Button("Add Object", () -> {
                 SceneObject object = new SceneObject();
+                object.sceneRef.setIdentity("Empty GameObject", "Untagged");
+                object.sceneRef.getSpriteRenderer().invalidateShader();
                 addToScene(object);
             }));
 

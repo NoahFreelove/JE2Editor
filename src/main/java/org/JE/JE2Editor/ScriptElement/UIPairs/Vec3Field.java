@@ -17,10 +17,11 @@ public class Vec3Field extends FieldUIPair {
     private FloatField y;
     private FloatField z;
     private String title;
+
     public Vec3Field(Field field, Vector3f vector3f, Object ref, String title) {
         super(field, FieldType.VEC3, ref);
         this.value = vector3f;
-        this.title = StringFormatter.capSplit(title);
+        this.title = StringFormatter.capAndSplit(title);
         x = new FloatField(field, value, title + "X", -10000, value.x, 10000, 1f, 0.1f, false);
         y = new FloatField(field, value,  title + "Y", -10000, value.y, 10000, 1f, 0.1f, false);
         z = new FloatField(field, value,  title + "Z", -10000, value.z, 10000, 1f, 0.1f, false);
