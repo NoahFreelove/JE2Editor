@@ -3,20 +3,16 @@ package org.JE.JE2Editor.EditorUI.Tools;
 import org.JE.JE2.Objects.Scripts.Base.Script;
 import org.JE.JE2.Rendering.Renderers.Renderer;
 import org.JE.JE2.Rendering.Shaders.ShaderProgram;
-import org.JE.JE2.UI.UIElements.Buttons.Button;
+import org.JE.JE2.UI.UIElements.Checkboxes.StyledCheckbox;
 import org.JE.JE2Editor.EditorScene;
 import org.JE.JE2Editor.EditorUI.Elements.SceneObject;
+import org.JE.JE2Editor.EditorUI.Styles;
 
-public class ToggleLightingModeButton extends Button {
-    boolean light = false;
+public class ToggleLightingModeButton extends StyledCheckbox {
     public ToggleLightingModeButton(){
-        super("Toggle Light Mode");
-        onClickEvent = new Runnable() {
-            @Override
-            public void run() {
-                light = !light;
-                setLighting();
-            }
+        super(false,"Simulate Shaders", Styles.checkBoxStyle);
+        onChange = (value) -> {
+            setLighting();
         };
     }
 
@@ -26,7 +22,7 @@ public class ToggleLightingModeButton extends Button {
     }
 
     private void setLighting(){
-        if(!light){
+        if(!isChecked){
             EditorScene.instance.world.gameObjects.forEach(object ->{
                 if(object.getRenderer() !=null) {
                     if(object.getRenderer().getVAO().getShaderProgram().valid())

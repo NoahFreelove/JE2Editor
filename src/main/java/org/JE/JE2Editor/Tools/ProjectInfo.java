@@ -3,6 +3,7 @@ package org.JE.JE2Editor.Tools;
 public class ProjectInfo {
     public static String sourceDirectory = "";
     public static String activeScenePath = "scene.JEScene";
+
     public static String sceneDir = "";
     public static String runPath = "";
     public static String runPackage = "";
@@ -27,41 +28,44 @@ public class ProjectInfo {
             if(line.startsWith("src:")){
                 ProjectInfo.sourceDirectory = line.replace("src:", "").trim();
             }
-            if(line.startsWith("sceneDir:")){
+            else if(line.startsWith("sceneDir:")){
                 ProjectInfo.sceneDir = line.replace("sceneDir:", "").trim();
             }
-            if(line.startsWith("runPath:")){
+            else if(line.startsWith("runPath:")){
                 ProjectInfo.runPath = line.replace("runPath:", "").trim();
             }
-            if(line.startsWith("runPackage:")){
+            else if(line.startsWith("runPackage:")){
                 ProjectInfo.runPackage = line.replace("runPackage:", "").trim();
             }
-            if(line.startsWith("outPath:")){
+            else if(line.startsWith("outPath:")){
                 ProjectInfo.outPath = line.replace("outPath:", "").trim();
             }
-            if(line.startsWith("javaC:")){
+            else if(line.startsWith("javaC:")){
                 ProjectInfo.javaC = line.replace("javaC:", "").trim();
             }
-            if(line.startsWith("je2Jar:")){
+            else if(line.startsWith("je2Jar:")){
                 ProjectInfo.je2Jar = line.replace("je2Jar:", "").trim();
             }
-            if(line.startsWith("jarName:")){
+            else if(line.startsWith("jarName:")){
                 ProjectInfo.jarName = line.replace("jarName:", "").trim();
             }
-            if(line.startsWith("jarC:")){
+            else if(line.startsWith("jarC:")){
                 ProjectInfo.jarC = line.replace("jarC:", "").trim();
             }
-            if(line.startsWith("je2ScriptJar:")){
+            else if(line.startsWith("je2ScriptJar:")){
                 ProjectInfo.je2ScriptJar = line.replace("je2ScriptJar:", "").trim();
             }
-            if(line.startsWith("je2CompilerJar:")){
+            else if(line.startsWith("je2CompilerJar:")){
                 ProjectInfo.je2CompilerJar = line.replace("je2CompilerJar:", "").trim();
             }
-            if(line.startsWith("java:")){
+            else if(line.startsWith("java:")){
                 ProjectInfo.java = line.replace("java:", "").trim();
             }
-            if(line.startsWith("semicolonSeparatedDependencies:")){
+            else if(line.startsWith("semicolonSeparatedDependencies:")){
                 ProjectInfo.semicolonSeparatedDependencies = line.replace("semicolonSeparatedDependencies:", "").trim().split(";");
+            }
+            else if(line.startsWith("defaultScene:")){
+                ProjectInfo.activeScenePath = sceneDir + "\\" + line.replace("defaultScene:", "").trim();
             }
         }
     }

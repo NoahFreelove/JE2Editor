@@ -2,8 +2,7 @@ package org.TestProject.Scripts;
 import org.JE.JE2.Objects.Scripts.Base.Script;
 
 public class CoolScript extends Script{
-    GameObject obj;
-    $construct{
-        #print("Old Text!")
+    $event start(){
+    #print("This text may appear when the game starts");
     }
 }

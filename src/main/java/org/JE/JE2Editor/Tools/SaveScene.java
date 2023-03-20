@@ -9,8 +9,6 @@ import java.io.IOException;
 public class SaveScene {
 
     public static void saveSceneToFile(String filePath, SceneObject[] objects){
-
-
         File sceneFile = new File(filePath);
 
         FileWriter writer;

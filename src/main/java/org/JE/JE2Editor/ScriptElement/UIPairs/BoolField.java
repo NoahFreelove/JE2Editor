@@ -1,9 +1,8 @@
 package org.JE.JE2Editor.ScriptElement.UIPairs;
 
 import org.JE.JE2.UI.UIElements.Checkboxes.StyledCheckbox;
-import org.JE.JE2.UI.UIElements.Style.Color;
-import org.JE.JE2.UI.UIElements.Style.StyleInfo;
 import org.JE.JE2Editor.EditorUI.StringFormatter;
+import org.JE.JE2Editor.EditorUI.Styles;
 import org.JE.JE2Editor.ScriptElement.FieldType;
 
 import java.lang.reflect.Field;
@@ -14,7 +13,7 @@ public class BoolField extends FieldUIPair{
     public BoolField(Field field, boolean defaultValue, Object ref) {
         super(field, FieldType.BOOL, ref);
         this.value = defaultValue;
-        checkbox = new StyledCheckbox(defaultValue, StringFormatter.capAndSplit(field.getName()), new StyleInfo().setInactiveColor(Color.RED).setPressedColor(Color.GREEN).setHoverColor(Color.GREEN));
+        checkbox = new StyledCheckbox(defaultValue, StringFormatter.capAndSplit(field.getName()), Styles.checkBoxStyle);
     }
 
     @Override

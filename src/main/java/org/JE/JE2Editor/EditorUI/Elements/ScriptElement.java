@@ -8,6 +8,7 @@ import org.JE.JE2.Rendering.Renderers.Renderer;
 import org.JE.JE2.Rendering.Renderers.SpriteRenderer;
 import org.JE.JE2.Rendering.Texture;
 import org.JE.JE2.Resources.ResourceLoader;
+import org.JE.JE2.UI.UIElements.Buttons.Button;
 import org.JE.JE2.UI.UIElements.Style.Color;
 import org.JE.JE2.UI.UIElements.UIElement;
 import org.JE.JE2.Window.UIHandler;
@@ -38,9 +39,14 @@ public class ScriptElement extends UIElement {
     private RemoveScriptButton rsb;
     private String scriptTitle = "";
     private SceneObject sceneObject;
+    public boolean isCollapsed = false;
+    private Button toggleCollapsed;
+
     public ScriptElement(Script comp, SceneObject sceneObject){
         this.ref = comp;
         this.sceneObject = sceneObject;
+        toggleCollapsed = new Button("+/-", () -> isCollapsed = !isCollapsed);
+
         Nuklear.nk_rgb(50,50,50,color);
 
         rsb = new RemoveScriptButton(comp);
@@ -72,24 +78,30 @@ public class ScriptElement extends UIElement {
 
     @Override
     protected void render() {
+        nk_spacer(UIHandler.nuklearContext);
         nk_label_colored(UIHandler.nuklearContext,scriptTitle,Nuklear.NK_TEXT_ALIGN_LEFT, Color.WHITE.nkColor());
-        for (FieldUIPair f : visibleFields) {
+        toggleCollapsed.text = (isCollapsed ? "Show" : "Hide");
+        toggleCollapsed.requestRender();
 
-            try {
-                if(f.hint !=null)
-                    f.hint.requestRender();
-                f.requestRender();
-                Nuklear.nk_spacer(UIHandler.nuklearContext);
+        if(!isCollapsed){
+            for (FieldUIPair f : visibleFields) {
 
-            } catch (Exception e) {
-                //e.printStackTrace();
+                try {
+                    if(f.hint !=null)
+                        f.hint.requestRender();
+                    f.requestRender();
+                    Nuklear.nk_spacer(UIHandler.nuklearContext);
+
+                } catch (Exception e) {
+                    //e.printStackTrace();
+                }
             }
         }
+
         if(ref.getRestrictions().canBeRemoved)
         {
             rsb.requestRender();
         }
-        nk_spacer(UIHandler.nuklearContext);
     }
 
     private FieldUIPair getType(Field field, Script ref){
@@ -106,19 +118,18 @@ public class ScriptElement extends UIElement {
         else if(fieldValue instanceof Vector2f vec2){ return new Vec2Field(field, vec2, ref, field.getName()); }
         else if(fieldValue instanceof String str){
             StringField sf = new StringField(field, str, ref, field.getName());
-            if(field.getName().equals("textureFp") && ref.getClass() == SpriteRenderer.class)
+            if(field.getName().equals("textureFilepath") && ref.getClass() == SpriteRenderer.class)
             {
                 sf.tf.eventChanged = s -> {
                     if(ResourceLoader.get(s) != null){
                         File f = new File(ResourceLoader.get(s));
                         if(f.exists() && !f.isDirectory()){
                             sceneObject.sceneRef.getSpriteRenderer().setTexture(new Texture(ResourceLoader.getBytes(s)));
-
                         }
                     }
                 };
             }
-            else if(field.getName().equals("normalFp") && ref.getClass() == SpriteRenderer.class)
+            else if(field.getName().equals("normalFilepath") && ref.getClass() == SpriteRenderer.class)
             {
                 sf.tf.eventChanged = s -> {
                     if(ResourceLoader.get(s) != null){

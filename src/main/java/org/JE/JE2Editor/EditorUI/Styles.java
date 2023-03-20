@@ -9,4 +9,6 @@ public record Styles() {
             .setPressedColor(Color.createColorHex("#212121"))
             .setInactiveColor(Color.createColorHex("#191A1D"))
             .setNormalColor(Color.createColorHex("#424242"));
+
+    public static final StyleInfo checkBoxStyle = new StyleInfo().setInactiveColor(Color.RED).setPressedColor(Color.GREEN).setHoverColor(Color.GREEN);
 }

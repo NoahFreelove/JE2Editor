@@ -2,12 +2,15 @@ package org.JE.JE2Editor;
 
 import org.JE.JE2.IO.UserInput.Keyboard.Keyboard;
 import org.JE.JE2.Manager;
+import org.JE.JE2.Objects.GameObject;
+import org.JE.JE2.Rendering.Camera;
 import org.JE.JE2.Resources.ResourceLoader;
 import org.JE.JE2.Scene.Scene;
 import org.JE.JE2.UI.GetScaledPosition;
 import org.JE.JE2.UI.UIElements.Buttons.Button;
 import org.JE.JE2.UI.UIElements.Label;
 import org.JE.JE2.UI.UIElements.Spacer;
+import org.JE.JE2.Utility.GarbageCollection;
 import org.JE.JE2Editor.EditorUI.*;
 import org.JE.JE2Editor.EditorUI.Elements.SceneObject;
 import org.JE.JE2Editor.EditorUI.Tools.*;
@@ -75,12 +78,13 @@ public class EditorScene extends Scene {
         }));
 
         ToolsWindow.instance.children.add(new Button("Load Scene", () -> {
-            LoadScene.loadSceneFromFile(ResourceLoader.getBytesAsString(ProjectInfo.activeScenePath), "scene");
+            LoadScene.loadSceneFromFile(ResourceLoader.readTextFile(ProjectInfo.activeScenePath), "scene");
         }));
         ToolsWindow.instance.children.add(new CompileScriptsButton());
         ToolsWindow.instance.children.add(new RunGameButton());
 
         ToolsWindow.instance.children.add(new BuildGameButton());
+        ToolsWindow.instance.children.add(new Button("Garbage Collection", GarbageCollection::takeOutDaTrash));
         ToolsWindow.instance.children.add(new ToggleLightingModeButton());
     }
 
@@ -147,5 +151,14 @@ public class EditorScene extends Scene {
         resetInspector();
         resetToolsWindow();
         resetFileExplorer();
+
+        GameObject camObject = new GameObject();
+        Camera camera = new Camera();
+        camObject.addScript(camera);
+        CameraController cc = new CameraController();
+        cc.camRef = camera;
+        camObject.addScript(cc);
+        EditorScene.instance.setCamera(camera);
+        EditorScene.instance.add(camObject);
     }
 }

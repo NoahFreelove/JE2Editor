@@ -51,7 +51,7 @@ public class LoadScene {
                         sceneObject.scripts) {
                     if(s instanceof SpriteRenderer sr){
                         hasRenderer = true;
-                        String fp = sr.getTextureFp();
+                        String fp = sr.getTextureFilepath();
 
                         if(ResourceLoader.get(fp) != null){
                             File f = new File(ResourceLoader.get(fp));
@@ -60,14 +60,14 @@ public class LoadScene {
                             }
                             sceneObject.sceneRef.getSpriteRenderer().setTexture(new Texture(ResourceLoader.getBytes(fp)));
                         }
-                        String nfp = sr.getNormalFp();
+                        String nfp = sr.getNormalFilepath();
 
                         if(ResourceLoader.get(nfp) != null){
                             File f = new File(ResourceLoader.get(nfp));
                             if(!f.exists() || f.isDirectory()){
                                 continue;
                             }
-                            sceneObject.sceneRef.getSpriteRenderer().setTexture(new Texture(ResourceLoader.getBytes(nfp)));
+                            sceneObject.sceneRef.getSpriteRenderer().setNormalTexture(new Texture(ResourceLoader.getBytes(nfp)));
                         }
                     }
                 }
@@ -98,7 +98,7 @@ public class LoadScene {
                 }
             }
         }
-        ProjectInfo.activeScenePath = name + ".JEScene";
+        ProjectInfo.activeScenePath = ProjectInfo.sceneDir + "\\" +  name + ".JEScene";
     }
 
     private static Object deserialize(String input){
