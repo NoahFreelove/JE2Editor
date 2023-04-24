@@ -1,6 +1,6 @@
 package org.JE.JE2Editor.ScriptElement.UIPairs;
 
-import org.JE.JE2.UI.UIElements.IntEventChanged;
+import org.JE.JE2.UI.UIElements.ElementEventChanged;
 import org.JE.JE2.Window.UIHandler;
 import org.JE.JE2Editor.ScriptElement.FieldType;
 
@@ -16,7 +16,7 @@ public class IntField extends FieldUIPair {
     private int min = 0;
     private int max = 0;
     private int incPerPixel = 1;
-    public IntEventChanged onChanged = null;
+    public ElementEventChanged<Integer> onChanged = null;
 
     public IntField(Field field, String label, Object ref, int min, int initValue, int max) {
         super(field, FieldType.INT, ref);

@@ -3,7 +3,7 @@ package org.JE.JE2Editor;
 import org.JE.JE2.IO.UserInput.Keyboard.Keyboard;
 import org.JE.JE2.IO.UserInput.Mouse.Mouse;
 import org.JE.JE2.Manager;
-import org.JE.JE2.Objects.Scripts.Base.Script;
+import org.JE.JE2.Objects.Scripts.Script;
 import org.JE.JE2.Rendering.Camera;
 import org.jbox2d.common.MathUtils;
 import org.joml.Vector2f;

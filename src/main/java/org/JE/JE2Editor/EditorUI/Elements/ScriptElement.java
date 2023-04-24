@@ -3,11 +3,11 @@ package org.JE.JE2Editor.EditorUI.Elements;
 import org.JE.JE2.Annotations.EditorEnum;
 import org.JE.JE2.Annotations.HideFromInspector;
 import org.JE.JE2.Objects.GameObject;
-import org.JE.JE2.Objects.Scripts.Base.Script;
+import org.JE.JE2.Objects.Scripts.Script;
 import org.JE.JE2.Rendering.Renderers.Renderer;
 import org.JE.JE2.Rendering.Renderers.SpriteRenderer;
 import org.JE.JE2.Rendering.Texture;
-import org.JE.JE2.Resources.ResourceLoader;
+import org.JE.JE2.Resources.DataLoader;
 import org.JE.JE2.UI.UIElements.Buttons.Button;
 import org.JE.JE2.UI.UIElements.Style.Color;
 import org.JE.JE2.UI.UIElements.UIElement;
@@ -121,10 +121,10 @@ public class ScriptElement extends UIElement {
             if(field.getName().equals("textureFilepath") && ref.getClass() == SpriteRenderer.class)
             {
                 sf.tf.eventChanged = s -> {
-                    if(ResourceLoader.get(s) != null){
-                        File f = new File(ResourceLoader.get(s));
+                    if(DataLoader.get(s) != null){
+                        File f = new File(DataLoader.get(s));
                         if(f.exists() && !f.isDirectory()){
-                            sceneObject.sceneRef.getSpriteRenderer().setTexture(new Texture(ResourceLoader.getBytes(s)));
+                            sceneObject.sceneRef.getSpriteRenderer().setTexture(Texture.checkExistElseCreate(s,-1,s));
                         }
                     }
                 };
@@ -132,10 +132,10 @@ public class ScriptElement extends UIElement {
             else if(field.getName().equals("normalFilepath") && ref.getClass() == SpriteRenderer.class)
             {
                 sf.tf.eventChanged = s -> {
-                    if(ResourceLoader.get(s) != null){
-                        File f = new File(ResourceLoader.get(s));
+                    if(DataLoader.get(s) != null){
+                        File f = new File(DataLoader.get(s));
                         if(f.exists() && !f.isDirectory()){
-                            sceneObject.sceneRef.getSpriteRenderer().setNormalTexture(new Texture(ResourceLoader.getBytes(s)));
+                            sceneObject.sceneRef.getSpriteRenderer().setNormalTexture(Texture.checkExistElseCreate(s,-1,s));
                         }
                     }
                 };

@@ -1,7 +1,7 @@
 package org.JE.JE2Editor;
 
 import org.JE.JE2.Manager;
-import org.JE.JE2.Resources.ResourceLoader;
+import org.JE.JE2.Resources.DataLoader;
 import org.JE.JE2.Window.WindowPreferences;
 import org.JE.JE2Editor.Tools.LoadScene;
 import org.JE.JE2Editor.Tools.ProjectInfo;
@@ -13,6 +13,6 @@ public class Start {
         Manager.start(new WindowPreferences(windowSize, "JE2 Editor", false, true));
         Manager.setScene(EditorScene.instance);
         System.out.println("Started editor loading default scene: " + ProjectInfo.activeScenePath);
-        LoadScene.loadSceneFromFile(ResourceLoader.readTextFile(ProjectInfo.activeScenePath), "Scene");
+        LoadScene.loadSceneFromFile(DataLoader.readTextFile(ProjectInfo.activeScenePath), "Scene");
     }
 }

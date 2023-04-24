@@ -1,7 +1,8 @@
 package org.JE.JE2Editor.Tools;
 
-import org.JE.JE2.Objects.Scripts.Base.Script;
-import org.JE.JE2.Objects.Scripts.Common.Transform;
+
+import org.JE.JE2.Objects.Scripts.Script;
+import org.JE.JE2.Objects.Scripts.Transform;
 
 public class TransformUpdater extends Script {
 

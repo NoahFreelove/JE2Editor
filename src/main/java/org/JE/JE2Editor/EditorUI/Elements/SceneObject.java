@@ -2,12 +2,12 @@ package org.JE.JE2Editor.EditorUI.Elements;
 
 import org.JE.JE2.Objects.GameObject;
 import org.JE.JE2.Objects.Identity;
-import org.JE.JE2.Objects.Scripts.Base.Script;
-import org.JE.JE2.Objects.Scripts.Common.Transform;
+
+import org.JE.JE2.Objects.Scripts.Transform;
 import org.JE.JE2.Rendering.Renderers.SpriteRenderer;
 import org.JE.JE2.Rendering.Shaders.ShaderProgram;
 import org.JE.JE2.Rendering.Texture;
-import org.JE.JE2.Resources.ResourceLoader;
+import org.JE.JE2.Resources.DataLoader;
 import org.JE.JE2Editor.Tools.TransformUpdater;
 import org.joml.Vector2f;
 
@@ -17,6 +17,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import org.JE.JE2.Objects.Scripts.Script;
 
 public class SceneObject{
     public ArrayList<Script> scripts = new ArrayList<>();
@@ -27,8 +28,8 @@ public class SceneObject{
         scripts.add(new Transform());
         sceneRef.addScript(new TransformUpdater((Transform) scripts.get(0)));
         SpriteRenderer sr = new SpriteRenderer(ShaderProgram.spriteShader());
-        sr.setTexture(new Texture(ResourceLoader.getBytes("texture1.png")));
-        sr.setNormalTexture(new Texture(ResourceLoader.getBytes("texture1_N.png")));
+        sr.setTexture(Texture.checkExistElseCreate("baseGameObject",-1,"texture1.png"));
+        sr.setNormalTexture(Texture.checkExistElseCreate("baseGameObject_N",-1,"texture1_N.png"));
         sceneRef.addScript(sr);
     }
     public SceneObject(Identity id, Texture image, Vector2f Scale, Script[] componentObjects){
@@ -39,16 +40,16 @@ public class SceneObject{
         sceneRef.addScript(new TransformUpdater((Transform) scripts.get(0)));
         scripts.addAll(Arrays.asList(componentObjects));
         SpriteRenderer sr = new SpriteRenderer(ShaderProgram.spriteShader());
-        sr.setTexture(new Texture(ResourceLoader.getBytes("texture1.png")));
-        sr.setNormalTexture(new Texture(ResourceLoader.getBytes("texture1_N.png")));
+        sr.setTexture(Texture.checkExistElseCreate("baseGameObject",-1,"texture1.png"));
+        sr.setNormalTexture(Texture.checkExistElseCreate("baseGameObject_N",-1,"texture1_N.png"));
         sceneRef.addScript(sr);
     }
     public SceneObject(GameObject reference){
         sceneRef = reference;
         scripts.addAll(reference.getScripts());
         SpriteRenderer sr = new SpriteRenderer(ShaderProgram.spriteShader());
-        sr.setTexture(new Texture(ResourceLoader.getBytes("texture1.png")));
-        sr.setNormalTexture(new Texture(ResourceLoader.getBytes("texture1_N.png")));
+        sr.setTexture(Texture.checkExistElseCreate("baseGameObject",-1,"texture1.png"));
+        sr.setNormalTexture(Texture.checkExistElseCreate("baseGameObject_N",-1,"texture1_N.png"));
         sceneRef.addScript(sr);
     }
 
@@ -61,8 +62,8 @@ public class SceneObject{
         sceneRef.addScript(new TransformUpdater((Transform) scripts.get(0)));
         scripts.addAll(Arrays.asList(componentObjects));
         SpriteRenderer sr = new SpriteRenderer(ShaderProgram.spriteShader());
-        sr.setTexture(new Texture(ResourceLoader.getBytes("texture1.png")));
-        sr.setNormalTexture(new Texture(ResourceLoader.getBytes("texture1_N.png")));
+        sr.setTexture(Texture.checkExistElseCreate("baseGameObject",-1,"texture1.png"));
+        sr.setNormalTexture(Texture.checkExistElseCreate("baseGameObject_N",-1,"texture1_N.png"));
         sceneRef.addScript(sr);
     }
 

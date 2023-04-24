@@ -1,6 +1,6 @@
 package org.JE.JE2Editor.EditorUI;
 
-import org.JE.JE2.Objects.Scripts.Base.Script;
+import org.JE.JE2.Objects.Scripts.Script;
 import org.JE.JE2.UI.UIObjects.UIWindow;
 import org.JE.JE2Editor.EditorUI.Elements.ScriptElement;
 import org.JE.JE2Editor.EditorUI.Elements.SceneObject;

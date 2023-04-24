@@ -4,7 +4,9 @@ import org.JE.JE2.IO.UserInput.Keyboard.Keyboard;
 import org.JE.JE2.Manager;
 import org.JE.JE2.Objects.GameObject;
 import org.JE.JE2.Rendering.Camera;
-import org.JE.JE2.Resources.ResourceLoader;
+import org.JE.JE2.Resources.DataLoader;
+import org.JE.JE2.Resources.ResourceLoadingPolicy;
+import org.JE.JE2.Resources.ResourceManager;
 import org.JE.JE2.Scene.Scene;
 import org.JE.JE2.UI.GetScaledPosition;
 import org.JE.JE2.UI.UIElements.Buttons.Button;
@@ -28,13 +30,14 @@ public class EditorScene extends Scene {
     private ArrayList<SceneObject> worldObjects = new ArrayList<>();
 
     public EditorScene(){
+        ResourceManager.policy = ResourceLoadingPolicy.CHECK_BY_NAME;
         addUI(HierarchyWindow.instance);
         addUI(InspectorWindow.instance);
         addUI(FileExplorer.instance);
         addUI(FileViewer.instance);
         addUI(ToolsWindow.instance);
 
-        Keyboard.keyPressedEvents.add((code, mods) -> {
+        Keyboard.addKeyPressedEvent((code, mods) -> {
             if(Keyboard.nameToCode("F1") == code){
                 resetHierarchy();
             }
@@ -78,7 +81,7 @@ public class EditorScene extends Scene {
         }));
 
         ToolsWindow.instance.children.add(new Button("Load Scene", () -> {
-            LoadScene.loadSceneFromFile(ResourceLoader.readTextFile(ProjectInfo.activeScenePath), "scene");
+            LoadScene.loadSceneFromFile(DataLoader.readTextFile(ProjectInfo.activeScenePath), "scene");
         }));
         ToolsWindow.instance.children.add(new CompileScriptsButton());
         ToolsWindow.instance.children.add(new RunGameButton());

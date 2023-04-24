@@ -1,13 +1,14 @@
 package org.JE.JE2Editor.EditorUI;
 
-import org.JE.JE2.UI.UIElements.Buttons.StyledButton;
+import org.JE.JE2.UI.UIElements.Buttons.Button;
 import org.JE.JE2Editor.EditorUI.Elements.SceneObject;
 
-public class ObjectHierarchyButton extends StyledButton {
+public class ObjectHierarchyButton extends Button {
 
     private SceneObject objRef;
     public ObjectHierarchyButton(SceneObject obj) {
-        super("", Styles.buttonStyle, () -> InspectorWindow.instance.setItem(obj));
+        super("", () -> InspectorWindow.instance.setItem(obj));
+        setStyle(Styles.buttonStyle);
         this.objRef = obj;
     }
 

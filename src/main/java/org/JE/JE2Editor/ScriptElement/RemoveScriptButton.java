@@ -1,6 +1,6 @@
 package org.JE.JE2Editor.ScriptElement;
 
-import org.JE.JE2.Objects.Scripts.Base.Script;
+import org.JE.JE2.Objects.Scripts.Script;
 import org.JE.JE2.Rendering.Renderers.Renderer;
 import org.JE.JE2.UI.UIElements.Buttons.Button;
 import org.JE.JE2.UI.UIElements.UIElement;

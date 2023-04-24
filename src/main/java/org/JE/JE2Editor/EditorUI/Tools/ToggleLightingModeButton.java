@@ -1,16 +1,17 @@
 package org.JE.JE2Editor.EditorUI.Tools;
 
-import org.JE.JE2.Objects.Scripts.Base.Script;
+import org.JE.JE2.Objects.Scripts.Script;
 import org.JE.JE2.Rendering.Renderers.Renderer;
 import org.JE.JE2.Rendering.Shaders.ShaderProgram;
-import org.JE.JE2.UI.UIElements.Checkboxes.StyledCheckbox;
+import org.JE.JE2.UI.UIElements.Checkbox;
 import org.JE.JE2Editor.EditorScene;
 import org.JE.JE2Editor.EditorUI.Elements.SceneObject;
 import org.JE.JE2Editor.EditorUI.Styles;
 
-public class ToggleLightingModeButton extends StyledCheckbox {
+public class ToggleLightingModeButton extends Checkbox {
     public ToggleLightingModeButton(){
-        super(false,"Simulate Shaders", Styles.checkBoxStyle);
+        super(false,"Simulate Shaders");
+        setStyle(Styles.checkBoxStyle);
         onChange = (value) -> {
             setLighting();
         };

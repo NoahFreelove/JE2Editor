@@ -1,6 +1,6 @@
 package org.JE.JE2Editor.EditorUI;
 
-import org.JE.JE2.Resources.ResourceLoader;
+import org.JE.JE2.Resources.DataLoader;
 import org.JE.JE2.UI.UIElements.Buttons.TextImageButton;
 import org.JE.JE2.UI.UIObjects.UIWindow;
 import org.joml.Vector2f;
@@ -42,9 +42,9 @@ public class FileExplorer extends UIWindow {
 
     public void addFile(File file){
         Filetype ft = decide(file);
-        children.add(new TextImageButton(file.getName(), ResourceLoader.getBytes(getFileTypeIcon(ft)), ()->{
+        /*children.add(new TextImageButton(file.getName(), DataLoader.getBytes(getFileTypeIcon(ft)), ()->{
             FileViewer.instance.viewFile(ft, file.getAbsolutePath());
-        }, new Vector2f(128,128)));
+        }, new Vector2f(128,128)));*/
     }
 
     public Filetype decide(File file){
